@@ -27,7 +27,7 @@ public:
     float val[4];
 
     void print() {
-        printf("rect %f %f %f %f\n", val[0], val[1], val[2], val[3]);
+        //printf("rect (%.2f, %.2f) (%.2f, %.2f)\n", val[0], val[1], val[2], val[3]);
     }
 };
 
@@ -82,12 +82,12 @@ public:
     cv::Rect_< float > finalbox; // final box res
 
     void print() {
-        printf("finalbox %f %f %f %f, score %f\n", finalbox.x, finalbox.y, finalbox.width, finalbox.height, score);
-        printf("landmarks ");
+        printf("finalbox: P0:(%.2f, %.2f) P1:(%.2f, %.2f), score %f\n", finalbox.x, finalbox.y, finalbox.width, finalbox.height, score);
+        //printf("landmarks:");
         for (int i = 0; i < pts.size(); ++i) {
-            printf("%f %f, ", pts[i].x, pts[i].y);
+            //printf("(%.2f, %.2f), ", pts[i].x, pts[i].y);
         }
-        printf("\n");
+        //printf("\n");
     }
 };
 

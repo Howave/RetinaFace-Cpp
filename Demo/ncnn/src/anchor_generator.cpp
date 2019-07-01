@@ -97,12 +97,12 @@ int AnchorGenerator::FilterAnchor(ncnn::Mat& cls, ncnn::Mat& reg, ncnn::Mat& pts
             {
 //            	std::cout<< j << i << id<<cls.channel(anchor_num + a)[id]<<",";
             	if (cls.channel(anchor_num + a)[id] >= cls_threshold) {
-                    printf("cls %f\n", cls.channel(anchor_num + a)[id]);
+                    //printf("cls %f\n", cls.channel(anchor_num + a)[id]);
                     CRect2f box(j * anchor_stride + preset_anchors[a][0],
                             i * anchor_stride + preset_anchors[a][1],
                             j * anchor_stride + preset_anchors[a][2],
                             i * anchor_stride + preset_anchors[a][3]);
-                    printf("%f %f %f %f\n", box[0], box[1], box[2], box[3]);
+                   // printf("%f %f %f %f\n", box[0], box[1], box[2], box[3]);
                     CRect2f delta(reg.channel(a*4+0)[id],
                             reg.channel(a*4+1)[id],
                             reg.channel(a*4+2)[id],
@@ -111,11 +111,11 @@ int AnchorGenerator::FilterAnchor(ncnn::Mat& cls, ncnn::Mat& reg, ncnn::Mat& pts
                     Anchor res;
                     res.anchor = cv::Rect_< float >(box[0], box[1], box[2], box[3]);
                     bbox_pred(box, delta, res.finalbox);
-                    printf("bbox pred\n");
+                    //printf("bbox pred\n");
                     res.score = cls.channel(anchor_num + a)[id];
                     res.center = cv::Point(j,i);
 
-                    printf("center %d %d\n", j, i);
+                    //printf("center %d %d\n", j, i);
 
                     if (1) {
                         std::vector<cv::Point2f> pts_delta(pts_length);
@@ -123,9 +123,9 @@ int AnchorGenerator::FilterAnchor(ncnn::Mat& cls, ncnn::Mat& reg, ncnn::Mat& pts
                             pts_delta[p].x = pts.channel(a*pts_length*2+p*2)[id];
                             pts_delta[p].y = pts.channel(a*pts_length*2+p*2+1)[id];
                         }
-                        printf("ready landmark_pred\n");
+                        //printf("ready landmark_pred\n");
                         landmark_pred(box, pts_delta, res.pts);
-                        printf("landmark_pred\n");
+                        //printf("landmark_pred\n");
                     }
                     result.push_back(res);
                 }
